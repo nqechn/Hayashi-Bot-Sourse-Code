@@ -12,18 +12,10 @@ const client = new discord.Client();
 
 client.on('ready', message =>
 {
-    client.user.setPresence({ game: { name: 'h!help | Status | 導入Server : 18　　　グロチャ完成まじ嬉しい' } });  
+    client.user.setPresence({ game: { name: 'h!help | Status | 導入Server : 28　　　導入鯖25超えました！40鯖目標です。' } });  
   console.log('bot is ready!');
 });
 
-client.on('message', message =>
-{
-	if(message.isMemberMentioned(client.user))
-	{
-		message.reply( '```ヘルプ表示はh!helpです！```' );
-		return;
-	}
-});
 
 if(process.env.DISCORD_BOT_TOKEN == undefined)
 {
@@ -128,6 +120,14 @@ client.login( process.env.DISCORD_BOT_TOKEN );
    return
   }; 
       
+   if(message.author.id == '697005609660448809') return;
+      
+      if(message.author.id == '700986398768889906') return;
+      
+      if(message.author.id == '690386645886828554') return;
+      
+      if(message.author.id == '697005609660448809') return;
+      
       if (message.attachments.size <= 0)
         {
             message.delete()
@@ -139,7 +139,7 @@ client.login( process.env.DISCORD_BOT_TOKEN );
                 const embed = new discord.RichEmbed()
                     .setAuthor(message.author.tag, message.author.avatarURL)
                     .setTitle(message.content)
-                    .setColor('RANDOM')
+                    .setColor('GREEN')
                     .setFooter(message.guild.name, message.guild.iconURL)
                     .setTimestamp()
                 if (channel.name === 'hayashi-chat')
@@ -155,7 +155,7 @@ client.login( process.env.DISCORD_BOT_TOKEN );
                     .setAuthor(message.author.tag, message.author.avatarURL)
                     .setImage(attachment.url)
                     .setTitle(attachment.url)
-                    .setColor('RANDOM')
+                    .setColor('GREEN')
                     .setFooter(message.guild.name, message.guild.iconURL)
                     .setTimestamp()
                 if (channel.name === 'hayashi-chat')
@@ -181,7 +181,7 @@ client.on('message', message => {
 
 client.on('message', message => {
   if (message.content === 'h!help') {
-    const replyText = '```🤖Help一覧🤖``` ```h!test=稼働しているかどうか調べるコマンドです。``` ```h!helpはこれです()``` ```h!hello=BOTがあいさつします``` ```h!ban=BANしたいやつがいるとき使ってね``` ```h!kick=KICKしたい人いたら使ってね``` ```h!official=公式鯖のURLを表示します``` ```h!globalkiyaku=林グローバルチャットの利用規約を表示します``` ```h!agree=利用規約に同意するとき使うコマンドです``` ```グローバルチャットの参加は #hayashi-chat というチャンネル作成すればできます``` ```退出したいときはチャンネルを消すか、名前を変えてください``` ```Hayashi Bot Invite URL↓``` https://discord.com/oauth2/authorize?client_id=680640361957425169&permissions=2082471159&scope=bot ```Brighten up every day with Hayashi Bot!``` ```🎊Have a nice day🎊``` ```by Hayashi Bot制作者 林君```'
+    const replyText = '```🤖Help一覧🤖``` ```h!test=稼働しているかどうか調べるコマンドです。``` ```h!helpはこれです()``` ```h!hello=BOTがあいさつします``` ```h!ban=BANしたいやつがいるとき使ってね``` ```h!kick=KICKしたい人いたら使ってね``` ```h!official=公式鯖のURLを表示します``` ```h!globalkiyaku=林グローバルチャットの利用規約を表示します``` ```h!agree=利用規約に同意するとき使うコマンドです``` ```グローバルチャットの参加は #hayashi-chat というチャンネル作成すればできます``` ```また、名前を見せないでチャットしたいときは仮名チャットというチャンネルを作ってください``` ```退出したいときはチャンネルを消すか、名前を変えてください``` ```Hayashi Bot Invite URL↓``` https://discord.com/oauth2/authorize?client_id=680640361957425169&permissions=2082471159&scope=bot ```Brighten up every day with Hayashi Bot!``` ```🎊Have a nice day🎊``` ```by Hayashi Bot制作者 林君```'
     return message.reply(replyText)
       .catch(console.error)
   }
@@ -286,7 +286,7 @@ client.on('message', message => {
 })
 
  client.on('message', async message => {
-   if (message.content === '!prompt') {
+   if (message.content === 'h!prompt') {
      message.channel.send('Yes か No を送信してください')
      const filter = msg => msg.author.id === message.author.id
      const collected = await message.channel.awaitMessages(filter, { max: 1, time: 10000 })
@@ -350,7 +350,7 @@ client.on('message', async message => {
      // ユーザーの❌のみに反応するためのフィルターを定義しておく
      const filter = (reaction, user) => reaction.emoji.name === '✅' && !user.bot
      // リアクションを待ち受けて処理を実行する
-     sent.awaitReactions(filter, { max: 1, time: 5000, errors: ['time'] })
+     sent.awaitReactions(filter, { max: 5, time: 1, errors: ['time'] })
        .then(() => sent.channel.send('```🎊利用規約に同意されました！🎊```')) // リアクションがされたら送信したメッセージを削除する
        .catch(() => reaction.remove()) // リアクションされなかったら自身で付けたリアクションを消す
    }
@@ -362,3 +362,74 @@ client.on('message', async message => {
     }
   })
 
+client.on('message', async message => {
+    if (message.content === 'h!kot') {
+      const reply = await message.channel.send('神に決まってるだろ！ばかか？お前')
+    }
+  })
+
+client.on('message', async message => {
+    if (message.content === 'h!hayashi') {
+      const reply = await message.channel.send('このBOTの制作者です。他にもBOT作ってるので欲しいときは林のDMへ行ってくださいね。')
+    }
+  })
+
+client.on('message', async message => {
+    if (message.content === 'h!ほもがきは臭いですか？') {
+      const reply = await message.channel.send('臭いの前にきたない()')
+    }
+  })
+
+   client.on('message', message =>
+{
+    if (message.channel.name === '仮名チャット')
+    {
+        if (message.author.bot) return;
+        
+      if(message.author.id == '697005609660448809') return;
+      
+      if(message.author.id == '700986398768889906') return;
+      
+      if(message.author.id == '690386645886828554') return;
+      
+      if(message.author.id == '697005609660448809') return;
+      
+      if (message.attachments.size <= 0)
+        {
+            message.delete()
+        }
+        client.channels.forEach(channel =>
+        {
+            if (message.attachments.size <= 0)
+            {
+                const embed = new discord.RichEmbed()
+                    .setTitle(message.content)
+                    .setColor('GREEN')
+                    .setFooter(message.guild.name, message.guild.iconURL)
+                    .setTimestamp()
+                if (channel.name ===   '仮名チャット')
+                {
+                    channel.send(embed)
+                    return;
+                }
+                return;
+            }
+            if (!message.attachments.forEach(attachment =>
+            {
+                const embed = new discord.RichEmbed()
+                    .setImage(attachment.url)
+                    .setTitle('仮名チャット')
+                    .setColor('GREEN')
+                    .setFooter(message.guild.name, message.guild.iconURL)
+                    .setTimestamp()
+                if (channel.name === '仮名チャット')
+                {
+                   channel.send(embed)
+                    return;
+                }
+                return;
+            }));
+            return;
+        });
+    }
+});  
