@@ -12,7 +12,7 @@ const client = new discord.Client();
 
 client.on('ready', message =>
 {
-    client.user.setPresence({ game: { name: 'h!help | Status | 導入Server : 32　　　導入鯖30超えました！40鯖目標です。' } });  
+    client.user.setPresence({ game: { name: 'h!help | Status | 導入Server : 32　　　導入鯖30超えました！50鯖目標です。' } });  
   console.log('bot is ready!');
 });
 
