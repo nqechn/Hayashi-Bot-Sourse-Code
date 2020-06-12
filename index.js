@@ -12,7 +12,7 @@ const client = new discord.Client();
 
 client.on('ready', message =>
 {
-    client.user.setPresence({ game: { name: 'h!help | Status | 導入Server : 28　　　導入鯖25超えました！40鯖目標です。' } });  
+    client.user.setPresence({ game: { name: 'h!help | Status | 導入Server : 32　　　導入鯖30超えました！40鯖目標です。' } });  
   console.log('bot is ready!');
 });
 
@@ -126,7 +126,11 @@ client.login( process.env.DISCORD_BOT_TOKEN );
       
       if(message.author.id == '690386645886828554') return;
       
-      if(message.author.id == '697005609660448809') return;
+      if(message.author.id == '672422208089489413') return;
+      
+        if(message.author.id == '708166910067605505') return;
+      
+      if(message.author.id == '598410545053564939') return;
       
       if (message.attachments.size <= 0)
         {
@@ -331,7 +335,7 @@ client.on('message', message => {
 
 client.on('message', async message => {
     if (message.content === 'h!globalkiyaku') {
-      const reply = await message.channel.send('```🎊林グローバルチャット利用規約🎊``` ```その1 荒らしを行わない``` ```荒らした場合は即BANやミュートの処置をします😡``` ```(できる限り荒らし対策はしています)``` ```その2 暴言、または下ネタを言わない(例 死ねちんちん)``` ```相手を傷つける行為はまずやめよう☹``` ```その3 SELF BOTを使わない``` ```使うこと自体がだめです😡``` ```上のルールを守って林グローバルチャットのご利用をお願いします🤭```')
+      const reply = await message.channel.send('```🎊林グローバルチャット利用規約🎊``` ```その1 荒らしを行わない``` ```荒らした場合は即BANやミュートの処置をします😡``` ```(できる限り荒らし対策はしています)``` ```その2 暴言、または下ネタを言わない(例 死ねちんちん)``` ```相手を傷つける行為はまずやめよう☹``` ```その3 SELF BOT(荒らしのために使う悪質なBOT)を使わない``` ```使うこと自体がだめです😡``` ```上のルールを守って林グローバルチャットのご利用をお願いします🤭```')
     }
   })
 
@@ -394,6 +398,8 @@ client.on('message', async message => {
       
       if(message.author.id == '697005609660448809') return;
       
+      if(message.author.id == '708166910067605505') return;
+      
       if (message.attachments.size <= 0)
         {
             message.delete()
@@ -433,3 +439,5 @@ client.on('message', async message => {
         });
     }
 });  
+ 
+
