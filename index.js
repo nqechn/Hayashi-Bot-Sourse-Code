@@ -12,7 +12,7 @@ const client = new discord.Client();
 
 client.on('ready', message =>
 {
-    client.user.setPresence({ game: { name: 'h!help | Status | 導入Server : 32　　　導入鯖30超えました！50鯖目標です。' } });  
+    client.user.setPresence({ game: { name: 'h!help | Status | 導入Server : 33　　　導入鯖30超えました！40鯖目標です。' } });  
   console.log('bot is ready!');
 });
 
@@ -131,6 +131,16 @@ client.login( process.env.DISCORD_BOT_TOKEN );
         if(message.author.id == '708166910067605505') return;
       
       if(message.author.id == '598410545053564939') return;
+      
+      if(message.author.id == '607748218373013515') return;
+      
+      if(message.author.id == '699961255309475930') return;
+      
+      if(message.author.id == '658963876297048064') return;
+      
+      if(message.author.id == '714801720902942771') return;
+      
+      if(message.author.id == '721053840077619302') return;
       
       if (message.attachments.size <= 0)
         {
@@ -390,15 +400,27 @@ client.on('message', async message => {
     {
         if (message.author.bot) return;
         
-      if(message.author.id == '697005609660448809') return;
+   if(message.author.id == '697005609660448809') return;
       
       if(message.author.id == '700986398768889906') return;
       
       if(message.author.id == '690386645886828554') return;
       
-      if(message.author.id == '697005609660448809') return;
+      if(message.author.id == '672422208089489413') return;
       
-      if(message.author.id == '708166910067605505') return;
+        if(message.author.id == '708166910067605505') return;
+      
+      if(message.author.id == '598410545053564939') return;
+      
+      if(message.author.id == '607748218373013515') return;
+      
+      if(message.author.id == '699961255309475930') return;
+      
+      if(message.author.id == '658963876297048064') return;
+      
+      if(message.author.id == '714801720902942771') return;
+      
+      if(message.author.id == '721053840077619302') return;
       
       if (message.attachments.size <= 0)
         {
@@ -439,5 +461,3 @@ client.on('message', async message => {
         });
     }
 });  
- 
-
