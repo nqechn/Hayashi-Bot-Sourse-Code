@@ -1,16 +1,22 @@
 // Discord bot implements
 const discord = require("discord.js");
 const client = new discord.Client();// Response for Uptime Robot
-
+const DD = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
+  const Year = DD.getFullYear();
+  const Month = DD.getMonth() + 1;
+  const Day = DD.getDate();
+  const Hours = DD.getHours();
+  const Minutes = DD.getMinutes();
+  const Seconds = DD.getSeconds();
  const ytdl = require('ytdl-core')
 
 const http = require("http");
 http
   .createServer(function(request, response) {
     response.writeHead(200, { "Content-Type": "text/plain" });
-    response.end("Bot is active now!! \n");
+    response.end("Hayashi Bot Status:\n\nPing: "+client.ws.ping+"ms\n\nGuilds: "+client.guilds.cache.size+"Guilds\n\nMember: "+client.users.cache.size+" Members\n\nTime: "+Year+"/"+Month+"/"+Day+" "+Hours+":"+Minutes+":"+Seconds);
   })
-  .listen(3000);
+  .listen(3000);//いじるときいってくれー By おにちゃん
 
 client.on("ready", message => {
   client.user.setPresence({
@@ -117,12 +123,46 @@ client.on("message",async message => {
      .setTimestamp()
      message.channel.send(embed)
    }
+    if (message.content === "h!guilds") {
+    message.channel.send("Hayashi Botが導入されているサーバー一覧をDMへ送信しました", {
+      split: true
+    });
+    message.author.send(client.guilds.cache.map(a => a.name));
+  }
+  if (message.content === "h!ping") {
+    let pi = client.ws.ping;
+    message.channel.send(pi + "ms" + "です('ω')ノ");
+    console.log(pi + "ms");
+  }
 });
 
 client.on("message", message => {
   if (message.channel.name === "hayashi-chat") {
     if (message.author.bot) return;
-    message.channel.send("```(宣伝)Hayashi Bot導入をお願いします！```")
+    if(message.content.match(/bit.ly/)){
+     const embed = new discord.MessageEmbed()
+     .setTitle('通知')
+     .addField('🚫bit.lyのURLは送信禁止です','会話もしようね')
+          .setTimestamp()
+      message.channel.send(embed)
+      return;
+    }
+    if(message.content.match(/youtu.be/)){
+       const embed = new discord.MessageEmbed()
+      .setTitle('通知')
+     .addField('🚫YouTubeのURLは送信禁止ですのでご注意を','あまり宣伝もしない方がいいかも...?')
+            .setTimestamp()
+       message.channel.send(embed)
+      return;
+    }
+        if(message.content.match(/youtube.com/)){
+       const embed = new discord.MessageEmbed()
+      .setTitle('通知')
+     .addField('🚫YouTubeのURLは送信禁止ですのでご注意を','会話もしようね')
+            .setTimestamp()
+       message.channel.send(embed)
+      return;
+    }
     if (message.attachments.size <= 0) {
       message.delete();
     }
@@ -171,16 +211,9 @@ client.on("message", async msg => {
     if (gbana[0] == undefined) return msg.channel.send("IDを入力してください。");
     if (gbana[1] == undefined) return msg.channel.send("GBANの理由を入力してください。");
     client.guilds.cache.forEach(guild => guild.members.ban(gbana[0], {reason: gbana[1]}));
+    msg.channel.send(client.users.get(gbana[0]).tag + "("+client.users.get(gbana[0])+")をGbanしました")
   }
-});
-
-client.on('message',  message => { 
-if (message.content === "h!ping") {
-    let pi = client.ws.ping;
-    message.channel.send(pi + "ms" + "です('ω')ノ");
-    console.log(pi + "ms");
-  }
-})
+});     
 
 client.on("message", async (message) => {
   if (message.content.startsWith("h!gc_agree") && message.guild) {
@@ -196,4 +229,8 @@ message.channel.send("グローバルチャットの利用規約に同意され�
   }
 });
 
-client.login(process.env.DISCORO_BOT_TOKEN);
+client.on('guildDelete', async guild => {
+  client.channels.cache.get('734339097103040533').send('ボットが、**'+guild.name+'**から退出しました。')
+})
+
+client.login(process.env.DISCORO_BOT_TOKEN);//Token盗むなよー
