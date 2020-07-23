@@ -105,9 +105,16 @@ client.on("message", async message => {
     reply.react("☹");
   }
   if (message.content === "h!gc_r") {
-    const reply = await message.channel.send(
-      "```🎊林グローバルチャット利用規約🎊``` ```その1 荒らしを行わない``` ```荒らした場合は即BANやミュートの処置をします😡``` ```(できる限り荒らし対策はしています)``` ```その2 暴言、または下ネタを言わない(例 死ねちんちん)``` ```相手を傷つける行為はまずやめよう☹``` ```その3 SELF BOT(荒らしのために使う悪質なBOT)を使わない``` ```使うこと自体がだめです😡``` ```上のルールを守って林グローバルチャットのご利用をお願いします🤭```"
-    );
+          const embed = new discord.MessageEmbed()
+        .setTitle("Hayashi Global Chat利用規約")
+        .addField("荒らし行為は絶対禁止です", "した場合は即GBANです")
+        .addField("下ネタを言ったり、喧嘩したりしない", "他の人もみることができますので迷惑行為ですのでやめましょう！")
+        .addField("SELF BOTを使用しない", "セルフボットとは荒らしなどのために使用される悪質なBOTです")
+        .addField("YouTubeとBit.lyの宣伝は禁止です", "会話をしよう！")
+        .addField("このルールを守って使用をお願いします", "導入リンクは下から！")
+        .addField("導入リンク", "https://discord.com/api/oauth2/authorize?client_id=680640361957425169&permissions=8&scope=bot")          
+        .setTimestamp();
+      message.channel.send(embed);
   }
   if (message.content === "h!official") {
     const reply = await message.channel.send(
@@ -270,11 +277,11 @@ client.on("message", message => {
   }
 });
 
-const admin = "638217647380758538";
+var adamin = "638217647380758538";
 client.on("message", async msg => {
   if (msg.content.startsWith("h!gban")) {
     if (msg.author.bot) return;
-    if (msg.author.id !== admin) return msg.channel.send("権限がありません。");
+    if (msg.author.id !== adamin) return msg.channel.send("権限がありません。");
     var gbana = msg.content.split(" ");
     gbana.shift();
     if (gbana[0] == undefined)
@@ -316,4 +323,3 @@ client.on("guildDelete", async guild => {
 });
 
 client.login(process.env.DISCORO_BOT_TOKEN); //Token盗むなよー //Tokenここにかくｱﾎｶﾞいるんだよ
-
