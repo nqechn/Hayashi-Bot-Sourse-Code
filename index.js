@@ -61,9 +61,12 @@ client.on("ready", message => {
 
 client.on("message", async message => {
   if (message.content === "h!invite") {
-    const replyText =
-      "```BOT招待↓``` https://discord.com/api/oauth2/authorize?client_id=680640361957425169&permissions=8&scope=bot ```このURL行ってね``` ";
-    return message.reply(replyText).catch(console.error);
+    const embed = new discord.MessageEmbed()
+        .setTitle("導入につきまして")
+        .addField("導入サーバーが減ってしまったため導入をお願いします", "導入リンクは下から！")
+        .addField("導入リンク", "https://discord.com/api/oauth2/authorize?client_id=680640361957425169&permissions=8&scope=bot")          
+        .setTimestamp();
+      message.channel.send(embed);
   }
   if (message.content === "おはよう") {
     const replyText = "おはようございます！今日も頑張りましょう！";
@@ -86,8 +89,7 @@ client.on("message", async message => {
     return message.reply(replyText).catch(console.error);
   }
   if (message.content === "Hayashi-YouTube") {
-    const replyText =
-      "https://www.youtube.com/channel/UChYN8vgjseGCtOQGjTVEDzg";
+    const replyText ="https://www.youtube.com/channel/UChYN8vgjseGCtOQGjTVEDzg";
 
     return message.reply(replyText).catch(console.error);
   }
@@ -117,9 +119,12 @@ client.on("message", async message => {
       message.channel.send(embed);
   }
   if (message.content === "h!official") {
-    const reply = await message.channel.send(
-      "```Official Server``` https://discord.gg/TWRZx6B"
-    );
+    const embed = new discord.MessageEmbed()
+        .setTitle("Q.林ボットに不具合があったら？")
+        .addField("それなら公式サーバーへ行こう！", "https://discord.gg/TWRZx6B")
+        .addField("導入リンク", "https://discord.com/api/oauth2/authorize?client_id=680640361957425169&permissions=8&scope=bot")          
+        .setTimestamp();
+      message.channel.send(embed);
   }
   if (message.content.startsWith("h!play") && message.guild) {
     // メッセージから動画URLだけを取り出す
@@ -148,31 +153,14 @@ client.on("message", async message => {
       .addField("h!help", "このページです")
       .addField("h!ban", "h!ban @BANしたい人をメンションでできます")
       .addField("h!kick", "BANコマンドと同じ感じで((")
-      .addField(
-        "*-------------------------------------------------------*",
-        "ここからはグローバルチャット関係です"
-      )
+          .addField("h!invite", "導入リンクを表示します")
+      .addField("*-------------------------------------------------------*", "ここからはグローバルチャット関係です")
       .addField("h!gc_r", "グローバルチャットの利用規約を表示します")
-      .addField(
-        "h!gc_agree",
-        "グローバルチャットの利用規約に同意するコマンドです"
-      )
-      .addField(
-        "林グローバルへの参加",
-        "hayashi-chatというチャンネルを作成すればできます！"
-      )
-      .addField(
-        "グローバルを抜けたい場合",
-        "チャンネルを削除するか名前を変えればOKです👍"
-      )
-      .addField(
-        "------------------------------------",
-        "グローバルチャット関係終わり"
-      )
-      .addField(
-        "導入リンク",
-        "https://discord.com/api/oauth2/authorize?client_id=680640361957425169&permissions=8&scope=bot"
-      )
+      .addField("h!gc_agree","グローバルチャットの利用規約に同意するコマンドです")
+      .addField("林グローバルへの参加","hayashi-chatというチャンネルを作成すればできます！")
+      .addField("グローバルを抜けたい場合","チャンネルを削除するか名前を変えればOKです👍")
+      .addField("------------------------------------","グローバルチャット関係終わり")
+      .addField("導入リンク","https://discord.com/api/oauth2/authorize?client_id=680640361957425169&permissions=8&scope=bot")
       .addField("ぜひ導入お願いします🤭", "Have a fun life with Hayashi Bot!")
       .setColor("GREEN")
       .setTimestamp();
