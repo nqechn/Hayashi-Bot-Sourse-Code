@@ -15,7 +15,6 @@ const ytdl = require("ytdl-core");
 const fs = require("fs");
 const fetch = require("node-fetch");
 
- const { ReactionController } = require('discord.js-reaction-controller')
  const prefix = 'h!'
  const pf = 'h!';
  
@@ -197,6 +196,34 @@ client.on("message", message => {
   }
 });
 
+ const GUILD = '789088752915054592' // 動作させるサーバーのID
+ const CHANNEL = '835755140950654986' // 名前を変更するチャンネルのID
+ 
+ // ボットがオフラインのときの変更は出来ないから、起動時に辻褄を合わせる
+ client.on('ready', () => {
+   const guild = client.guilds.cache.get(GUILD)
+   const channel = guild.channels.cache.get(CHANNEL)
+   channel.setName('メンバー数：'+ guild.memberCount)
+ })
+ 
+ // メンバーが参加したらチャンネル名を更新する
+ client.on('guildMemberAdd', member => {
+   // 指定したサーバーでのみ実行する
+   if (member.guild.id === GUILD) {
+     // チャンネルを取得して、名前を更新する
+     const channel = member.guild.channels.cache.get(CHANNEL)
+   channel.setName('メンバー数：'+ member.guild.memberCount)
+   }
+ })
+ 
+ // メンバーが退出したらチャンネル名を更新する（処理は上と同じ）
+ client.on('guildMemberRemove', member => {
+   if (member.guild.id === GUILD) {
+     const channel = member.guild.channels.cache.get(CHANNEL)
+  channel.setName('メンバー数： '+ member.guild.memberCount)
+   }
+ })
+
 client.on('message', async message => {
   if (message.content === "h!invite") {
     const embed = new discord.MessageEmbed()
@@ -329,6 +356,22 @@ client.on("message", async msg => {
       guild.members.ban(gbana[0], { reason: gbana[1] })
                                );
         msg.channel.send(client.users.get(gbana[0]).tag +"(" +client.users.get(gbana[0]) +")をGbanしました")
+  }
+})
+
+var adamin = "788734535562297365"; //adaminw
+client.on("message", async msg => {
+  if (msg.content.startsWith("h!ungban")) {
+    if (msg.author.bot) return;
+    if (msg.author.id !== adamin) return msg.channel.send("エラー : あなたは林ボットの管理者ではありません。");
+        var gbana = msg.content.split(" ");
+    gbana.shift();
+    if (gbana[0] == undefined)
+      return msg.channel.send("エラー : IDを入力してください。");
+    client.guilds.cache.forEach(guild =>
+      guild.members.unban(gbana[0] )
+                               );
+  msg.channel.send(client.users.get(gbana[0]).tag +"(" +client.users.get(gbana[0]) +")をGbanしました")
   }
 })
   
