@@ -155,6 +155,14 @@ client.on("message", message => {
 });
 client.on("message", message => {
   if (message.author.bot) {
+    if (message.content.match(/bit.ly/)) {
+                  message.react('⌚')
+      return;
+   }
+    if (message.content.match(/twitter.com/)) {
+                  message.react('⌚')
+      return;
+   }
     return;
   }
   try {
@@ -220,7 +228,7 @@ client.on("message", message => {
  client.on('guildMemberRemove', member => {
    if (member.guild.id === GUILD) {
      const channel = member.guild.channels.cache.get(CHANNEL)
-  channel.setName('メンバー数： '+ member.guild.memberCount)
+   channel.setName('メンバー数：'+ member.guild.memberCount)
    }
  })
 
@@ -315,11 +323,10 @@ client.on('message', async message => {
   if (message.content === "h!help") {
     const embed = new discord.MessageEmbed() 
       .setTitle("困った時はこれ一つ！ヘルプ一覧！")
-    .addField("ようこそ！", "")
-        .addField("h!gc_help", "グローバルチャットの時使えるコマンドなどを表示します")
+        .addField("h!gc_help", "グローバルチャットの時使えるコマンド一覧を表示します")
         .addField("h!ad_help", "管理人が使えるコマンド一覧を表示します")
+    .addField("h!music_h", "ボイスチャンネルで使えるコマンド一覧を表示します")
        .addField("h!file", "テキストファイルの中身を取り出します")
-          .addField("h!play", "音楽を再生します")
           .addField("h!invite", "導入リンクを表示します")
     .addField("h!timer", "タイマーをかけてくれます")
         .addField("h!guilds", "Hayashi Botが導入されているサーバーをDMへ送信します")
@@ -373,6 +380,60 @@ client.on("message", async msg => {
                                );
   msg.channel.send(client.users.get(gbana[0]).tag +"(" +client.users.get(gbana[0]) +")をGbanしました")
   }
+})
+
+var connections = {};
+var speak_chs = {};
+client.on('message', async message => {
+    if (!message.guild) return;
+
+    if (message.content === 'h!join') {
+        if (message.member.voice.channel) {
+            connections[message.author.id] = await message.member.voice.channel.join();
+            message.channel.send("参加しました。");
+        } else {
+            message.channel.send('まずはじめにボイスチャンネルに入ってください。');
+        }
+    }
+      if (message.content === 'h!JOIN') {
+        if (message.member.voice.channel) {
+            connections[message.author.id] = await message.member.voice.channel.join();
+            message.channel.send("参加しました。");
+        } else {
+            message.channel.send('まずはじめにボイスチャンネルに入ってください。');
+        }
+    }
+    if (message.content === "h!disconnect") {
+        if (connections.hasOwnProperty(message.author.id)) {
+            connections[message.author.id].channel.leave();
+                      message.channel.send("退出しました。");
+        }
+    }
+     if (message.content === "h!dc") {
+        if (connections.hasOwnProperty(message.author.id)) {
+            connections[message.author.id].channel.leave();
+                      message.channel.send("退出しました。");
+        }
+    }
+    if (message.content == "h!speak") {
+        if (connections.hasOwnProperty(message.author.id)) {
+            message.channel.send("このチャンネルを読み上げます。");
+            speak_chs[message.channel.id] = {
+                "author": message.author.id
+            };
+        } else {
+            message.channel.send("ボイスチャンネルに入って、その後に`h!join`と入力してください。");
+        }
+    }
+    if (message.content == "h!end") {
+        if (speak_chs.hasOwnProperty(message.author.id)) {
+            delete speak_chs[message.channel.id];
+            message.channel.send("読み上げを終了します。");
+        }
+    }
+    if (speak_chs.hasOwnProperty(message.channel.id)) {
+        connections[speak_chs[message.channel.id].author].play("https://api.lainan.one/voice.wav?text="+message.content,{volume:2});
+    }
 })
   
  client.on('message', message => {
@@ -461,7 +522,7 @@ color:"RANDOM",description: `${message.member}からのメッセージ\n${messag
     client.on('message', message => {
    if (message.content === 'h!ad_help') {
      const embed = new discord.MessageEmbed()
-       .setTitle('管理人が使える！コマンド一覧だよ！')
+       .setTitle('管理人が使えるコマンド一覧だよ！')
     .addField("h!ban", "メンバーをBANします")
       .addField("h!kick", "メンバーをキックします")
           .addField("h!clean", "メッセージを一括で削除できます")
@@ -474,7 +535,7 @@ color:"RANDOM",description: `${message.member}からのメッセージ\n${messag
    }
    if (message.content === 'h!gc_help') {
      const embed = new discord.MessageEmbed()
-       .setTitle('グローバルチャットのための！コマンド一覧だよ！')
+       .setTitle('グローバルチャットのためのコマンド一覧だよ！')
     .addField("h!gc_r", "グローバルチャットの利用規約を表示します")
      .addField("新林グローバル", "参加したいチャンネルでh!globalchatjoinを実行すればできます。")
            .addField("導入リンク","https://discord.com/api/oauth2/authorize?client_id=789094587632189462&permissions=8&scope=bot")
@@ -484,6 +545,22 @@ color:"RANDOM",description: `${message.member}からのメッセージ\n${messag
        .setTimestamp()
      message.channel.send(embed)
    }
+       if (message.content === 'h!music_h') {
+     const embed = new discord.MessageEmbed()
+       .setTitle('ボイスチャンネルで使うコマンド一覧だよ！')
+    .addField("h!join", "ボイスチャンネルに参加します")
+               .addField("h!play", "音楽を再生します")
+                    .addField("h!pause", "音楽を停止します")
+                    .addField("h!resume", "停止していた音楽を再び再生します")
+     .addField("h!disconnect", "ボイスチャンネルから退出します")
+     .addField("h!speak", "文字を読み上げます")
+           .addField("導入リンク","https://discord.com/api/oauth2/authorize?client_id=789094587632189462&permissions=8&scope=bot")
+    .addField("ぜひ導入お願いします🤭", "Have a fun life with Hayashi Bot!")
+       .setColor('GREEN')
+                     .setAuthor(message.author.tag, message.author.avatarURL())
+       .setTimestamp()
+     message.channel.send(embed)
+   }  
     })
       
       client.on("message", async message => {
@@ -494,7 +571,7 @@ color:"RANDOM",description: `${message.member}からのメッセージ\n${messag
        const body = await responce.text();
        message.channel.send(body);
      } else {
-       message.channel.send("ファイルをドロップしてね！");
+       message.channel.send("エラー : テキストファイルを選択してください");
      }
    }
  });
