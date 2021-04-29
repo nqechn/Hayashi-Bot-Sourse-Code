@@ -75,7 +75,7 @@ client.on("ready", message => {
  }
 
 client.on('message', async message => {
-    const re = new RegExp('https://discordapp.com/channels/([0-9]{18})/([0-9]{18})/([0-9]{18})')
+  const re = new RegExp('https://discordapp.com/channels/([0-9]{18})/([0-9]{18})/([0-9]{18})')
     const results = message.content.match(re)
     if (!results) {
         return
@@ -262,12 +262,77 @@ client.on('message', async message => {
     .setTimestamp();
       message.channel.send(embed);
   }
+      if (message.content === "h!github") {
+    const embed = new discord.MessageEmbed()
+        .setTitle("お、おう...")
+        .addField("こ、ここから行けるで...", "https://github.com/Hayashi1209/Hayashi-Bot-Sourse-Code")
+              .setColor("GREEN")
+                    .setAuthor(message.author.tag, message.author.avatarURL())
+    .setTimestamp();
+      message.channel.send(embed);
+  }
       if (message.content === "おはー！") {
     const embed = new discord.MessageEmbed()
         .setTitle("おはよー！")
         .addField("今日も元気でいいですね", "1日元気に過ごしましょう！")
               .setColor("GREEN")
                     .setAuthor(message.author.tag, message.author.avatarURL())
+    .setTimestamp();
+      message.channel.send(embed);
+  }
+        if (message.content === "h!about") {
+    const embed = new discord.MessageEmbed()
+        .setTitle("Hayashi_Bot Admin_team 2021")
+        .addField("Hayashi's Twitter", "https://twitter.com/106996")
+            .addField("Hayashi's YouTube", "https://www.youtube.com/c/Hayashi1209")
+        .addField("Hayashi's Discord", "Hayashi#4183")
+        .addField("Hayashi Bot Official Server", "https://discord.gg/xUarYBWeZS")
+            .addField("Next↓", "h!about2")
+              .setColor("RANDOM")
+    .setTimestamp();
+      message.channel.send(embed);
+  }
+          if (message.content === "h!about2") {
+    const embed = new discord.MessageEmbed()
+        .setTitle("Hayashi_Bot Admin_team 2021")
+        .addField("Onichan's Twitter", "https://twitter.com/onichan_devlop")
+            .addField("Onichan's YouTube", "https://www.youtube.com/channel/UCPzucWHbjElatx0KOOoOsdA")
+        .addField("Onichan's Twitch", "https://www.twitch.tv/onichan_jp")
+        .addField("Onichan's Spotify", "https://open.spotify.com/user/ivuve0hjb8d1k8oli7ybv0opp")
+            .addField("Onichan's GitHub", "https://github.com/onichanet")
+            .addField("Onichan's Discord", "Onichan XD#7947")
+           .addField("Hayashi Bot Official Server", "https://discord.gg/xUarYBWeZS")
+            .addField("Next↓", "h!about3")
+              .setColor("RANDOM")
+    .setTimestamp();
+      message.channel.send(embed);
+  }
+            if (message.content === "h!about2") {
+    const embed = new discord.MessageEmbed()
+        .setTitle("Hayashi_Bot Admin_team 2021")
+        .addField("Onichan's Twitter", "https://twitter.com/onichan_devlop")
+            .addField("Onichan's YouTube", "https://www.youtube.com/channel/UCPzucWHbjElatx0KOOoOsdA")
+        .addField("Onichan's Twitch", "https://www.twitch.tv/onichan_jp")
+        .addField("Onichan's Spotify", "https://open.spotify.com/user/ivuve0hjb8d1k8oli7ybv0opp")
+            .addField("Onichan's GitHub", "https://github.com/onichanet")
+            .addField("Onichan's Discord", "Onichan xD#7947")
+            .addField("Onichan's Discord Server", "https://discord.gg/qwMEfx445P")
+           .addField("Hayashi Bot Official Server", "https://discord.gg/xUarYBWeZS")
+            .addField("Next↓", "h!about3")
+              .setColor("RANDOM")
+    .setTimestamp();
+      message.channel.send(embed);
+  } if (message.content == "h!about3") {
+        const embed = new discord.MessageEmbed()
+        .setTitle("Hayashi_Bot Admin_team 2021")
+            .addField("Ayu's Twitter", "https://bit.ly/ayu_twitter")
+        .addField("Ayu's YouTube", "https://bit.ly/ayu_youtube")
+                .addField("Ayu's GitHub", "https://bit.ly/ayu-github")
+                        .addField("Ayu's Fantia", "https://bit.ly/ayu_fantia")
+        .addField("Ayu's Discord", "ayu0907#5208")
+                .addField("Ayu's Discord Server", "https://bit.ly/ayu_discordserver")
+           .addField("Hayashi Bot Official Server", "https://discord.gg/xUarYBWeZS")
+              .setColor("RANDOM")
     .setTimestamp();
       message.channel.send(embed);
   }
@@ -304,8 +369,8 @@ client.on('message', async message => {
         .addField("荒らし行為は絶対禁止です", "した場合は即GBANです")
         .addField("下ネタを言ったり、喧嘩したりしない", "他の人もみることができるチャットです。迷惑行為ですのでやめましょう！")
         .addField("SELF BOTを使用しない", "セルフボットとは荒らしなどのために使用される悪質なBOTです")
-        .addField("SNSや動画配信サイトなどの宣伝は禁止です", "会話をしよう！")
-        .addField("このルールを守って使用をお願いします", "またこのルールは新林グローバルでは有効になりません")
+        .addField("荒らし目的のサーバーの宣伝は禁止です", "あかんで")
+        .addField("このルールを守って使用をお願いします", "ﾌﾞｩｧｧｧｧｧｧｧｧｧﾝ")
         .addField("導入リンク", "https://discord.com/api/oauth2/authorize?client_id=789094587632189462&permissions=8&scope=bot")
                           .setAuthor(message.author.tag, message.author.avatarURL())
               .setColor("GREEN")  
@@ -320,6 +385,8 @@ client.on('message', async message => {
     .addField("h!music_h", "ボイスチャンネルで使えるコマンド一覧を表示します")
        .addField("h!file", "テキストファイルの中身を取り出します")
           .addField("h!invite", "導入リンクを表示します")
+              .addField("h!github", "た、ためにならんで...??")
+                  .addField("h!about", "開発者の情報表示する...よ...??")
     .addField("h!timer", "タイマーをかけてくれます")
         .addField("h!guilds", "Hayashi Botが導入されているサーバーをDMへ送信します")
       .addField("導入リンク","https://discord.com/api/oauth2/authorize?client_id=789094587632189462&permissions=8&scope=bot")
