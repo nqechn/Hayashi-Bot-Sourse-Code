@@ -452,4 +452,4 @@ client.on('message', async message => {
      }
  })
 
-client.login('Nzg5MDk0NTg3NjMyMTg5NDYy.X9tDmg.vT2Yoz3hsqhxnKRufBvBXe0WnEg');
+client.login('あ');
