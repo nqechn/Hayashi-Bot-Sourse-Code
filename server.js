@@ -9,7 +9,7 @@ const fs = require("fs");
  const pf = 'h!';
 
 client.on("ready", message => {
-  client.user.setActivity("Server : "+client.guilds.cache.size+" ｜ Ver : 1.0.2", { type: 'PLAYING' })
+  client.user.setActivity("Server : "+client.guilds.cache.size+" ｜ Ver : 1.0.3", { type: 'PLAYING' })
 console.log("Bot Starting Now");
   console.log('Logined ' + client.user.tag + '(' + client.user.id + ')')
 })
