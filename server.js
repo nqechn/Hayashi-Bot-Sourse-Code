@@ -7,52 +7,12 @@ const fs = require("fs");
 
  const prefix = 'h!'
  const pf = 'h!';
- 
-const http = require("http");
-http
-  .createServer(function(request, response) {
-    response.writeHead(200, { "Content-Type": "text/plain" });
-    response.end(
-      "Hayashi Bot Status\n\nPing: " +
-        client.ws.ping +
-        "ms\n\nGuilds: " +
-        client.guilds.cache.size +
-        "Guilds\n\nNow: " +
-        Year +
-        "/" +
-        Month +
-        "/" +
-        Day +
-        " " +
-        Hours +
-        ":" +
-        Minutes +
-        ":" +
-        Seconds
-    );
-  })
-  .listen(3000); //いじるときいってくれー By おにちゃん
 
 client.on("ready", message => {
-  client.user.setActivity("Server:"+client.guilds.cache.size+"", { type: 'LISTENING' })
+  client.user.setActivity("Server : "+client.guilds.cache.size+" ｜ Ver : 1.0.2", { type: 'PLAYING' })
 console.log("Bot Starting Now");
   console.log('Logined ' + client.user.tag + '(' + client.user.id + ')')
 })
-
-	client.on('message', async message => {
-   if (message.content.startsWith('h!ban') && message.guild) {
-   	if (!message.member.hasPermission('BAN_MEMBERS')) return message.channel.send('エラー : BANする権限がありません')
-     if (message.mentions.members.size !== 1) return message.channel.send('エラー : BANするメンバーを1人指定してください')
-     const member = await message.mentions.members.first().ban()
-     message.channel.send(`${member.user.tag}をBANしました`)
-   }
-   if (message.content.startsWith('h!kick') && message.guild) {
-   	if (!message.member.hasPermission('KICK_MEMBERS')) return message.channel.send('エラー : KICKする権限がありません')
-     if (message.mentions.members.size !== 1) return message.channel.send('エラー : KICKするメンバーを1人指定してください')
-     const member = await message.mentions.members.first().kick()
-     message.channel.send(`${member.user.tag}をKICKしました`)
-   }
-  })
 
 client.on('message', async message => {
   if (message.content === "h!invite") {
@@ -214,14 +174,12 @@ client.on('message', async message => {
     .setTimestamp();
       message.channel.send(embed);
   }
-  if (message.content === "h!gc_r") {
+  if (message.content === "h!r") {
           const embed = new discord.MessageEmbed()
-        .setTitle("Hayashi Global Chat利用規約")
+        .setTitle("これだけは守った方ええで")
         .addField("荒らし行為は絶対禁止です", "した場合は即GBANです")
-        .addField("下ネタを言ったり、喧嘩したりしない", "他の人もみることができるチャットでだからです。")
         .addField("SELF BOTを使用しない", "セルフボットとは荒らしなどのために使用される悪質なBOTです。")
         .addField("荒らし目的のサーバーの宣伝は禁止です", "あかんで")
-        .addField("このルールを守って使用をお願いします", "ﾌﾞｩｧｧｧｧｧｧｧｧｧﾝ")
         .addField("導入リンク", "https://discord.com/api/oauth2/authorize?client_id=789094587632189462&permissions=8&scope=bot")
                           .setAuthor(message.author.tag, message.author.avatarURL())
               .setColor("GREEN")  
@@ -231,14 +189,12 @@ client.on('message', async message => {
   if (message.content === "h!help") {
     const embed = new discord.MessageEmbed() 
       .setTitle("困った時はこれ一つ！ヘルプ一覧！")
-        .addField("h!gc_help", "グローバルチャットの時使えるコマンド一覧を表示します")
         .addField("h!ad_help", "管理人が使えるコマンド一覧を表示します")
     .addField("h!music_h", "ボイスチャンネルで使えるコマンド一覧を表示します")
           .addField("h!invite", "導入リンクを表示します")
             .addField("h!poll", "投票をします")
               .addField("h!github", "た、ためにならんで...??")
                   .addField("h!about", "開発者の情報表示する...よ...??")
-        .addField("h!guilds", "Hayashi Botが導入されているサーバーをDMへ送信します")
       .addField("導入リンク","https://discord.com/api/oauth2/authorize?client_id=789094587632189462&permissions=8&scope=bot")
     .addField("ぜひ導入お願いします🤭", "Have a fun life with Hayashi Bot!")
                 .setAuthor(message.author.tag, message.author.avatarURL())
@@ -249,21 +205,7 @@ client.on('message', async message => {
     if (message.content === 'h!ad_help') {
       const embed = new discord.MessageEmbed()
         .setTitle('管理人が使えるコマンド一覧だよ！')
-     .addField("h!ban", "メンバーをBANします")
-       .addField("h!kick", "メンバーをキックします")
            .addField("h!clean", "メッセージを一括で削除できます")
-            .addField("導入リンク","https://discord.com/api/oauth2/authorize?client_id=789094587632189462&permissions=8&scope=bot")
-     .addField("ぜひ導入お願いします🤭", "Have a fun life with Hayashi Bot!")
-        .setColor('GREEN')
-                      .setAuthor(message.author.tag, message.author.avatarURL())
-        .setTimestamp()
-      message.channel.send(embed)
-    }
-    if (message.content === 'h!gc_help') {
-      const embed = new discord.MessageEmbed()
-        .setTitle('グローバルチャットのためのコマンド一覧だよ！')
-     .addField("h!gc_r", "グローバルチャットの利用規約を表示します")
-      .addField("新林グローバル", "参加したいチャンネルでh!globalchatjoinを実行すればできます。")
             .addField("導入リンク","https://discord.com/api/oauth2/authorize?client_id=789094587632189462&permissions=8&scope=bot")
      .addField("ぜひ導入お願いします🤭", "Have a fun life with Hayashi Bot!")
         .setColor('GREEN')
@@ -274,8 +216,9 @@ client.on('message', async message => {
         if (message.content === 'h!music_h') {
       const embed = new discord.MessageEmbed()
         .setTitle('ボイスチャンネルで使うコマンド一覧だよ！')
-     .addField("h!join", "ボイスチャンネルに参加します")
-                .addField("h!play", "YouTubeの動画を再生します(不安定)")
+        .addField("h!yt", "YouTubeの動画を検索します")
+        .addField("h!join", "ボイスチャンネルに参加します")
+                .addField("h!play", "YouTubeの動画を再生しますが不安定なのでおすすめしません")
                      .addField("h!pause", "音楽を停止します")
                      .addField("h!resume", "停止していた音楽を再び再生します")
       .addField("h!disconnect", "ボイスチャンネルから退出します")
@@ -305,10 +248,6 @@ client.on("message", async msg => {
                                );
         msg.channel.send(client.users.get(gbana[0]).tag +"(" +client.users.get(gbana[0]) +")をGbanしました。")
   }
-})
-  
-  var adamin = "788734535562297365"; //adaminw
-client.on("message", async msg => {
   if (msg.content.startsWith("h!ungban")) {
     if (msg.author.bot) return;
     if (msg.author.id !== adamin) return msg.channel.send("エラー : あなたは林ボットの管理者ではありません。");
@@ -319,7 +258,7 @@ client.on("message", async msg => {
     client.guilds.cache.forEach(guild =>
       guild.members.unban(gbana[0] )
                                );
-  msg.channel.send(client.users.get(gbana[0]).tag +"(" +client.users.get(gbana[0]) +")をGbanしました。")
+  msg.channel.send(client.users.users(gbana[0]).tag +"(" +client.users.get(gbana[0]) +")をGbanしました。")
   }
 })
 
@@ -452,4 +391,19 @@ client.on('message', async message => {
      }
  })
 
-client.login('あ');
+ client.on('message', async message => {
+  if (message.content.startsWith("h!yt")){//コマンド
+    const reply = await message.channel.send('```Please Wait...```')
+      reply.delete({ timeout: 3000 })
+  const AKB = message.content.split(" ").slice(1).join(" ")
+  if (!AKB) return message.channel.send("Not Found :(");
+  const yts = require( 'yt-search' )//yt-searchを読み込む
+  yts( AKB, function ( err, r ) {//検索
+  const videos = r.videos
+  const playlists = r.playlists || r.lists
+  const channels = r.channels || r.accounts
+  message.channel.send('```こちらが見つかりました```'+videos[ 0 ].url)//表示
+})};
+ })
+
+client.login('');
