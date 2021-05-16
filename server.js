@@ -14,6 +14,14 @@ console.log("Bot Starting Now");
   console.log('Logined ' + client.user.tag + '(' + client.user.id + ')')
 })
 
+client.on('ready', () => {
+  setInterval(() => {
+    client.user.setActivity({
+      name: `https://discord.gg/K3JVKecmtg｜${client.ws.ping}ms`
+    })
+  }, 5000)
+})
+
 client.on('message', async message => {
   if (message.content === "h!invite") {
     const embed = new discord.MessageEmbed()
@@ -42,6 +50,15 @@ client.on('message', async message => {
                     .setAuthor(message.author.tag, message.author.avatarURL())
     .setTimestamp();
       message.channel.send(embed);
+  }
+  if (message.content === "h!guilds") {
+    message.channel.send(
+      "Hayashi Botが導入されているサーバー一覧をDMへ送信しました。",
+      {
+        split: true
+      }
+    )
+    message.author.send(client.guilds.cache.map(a => a.name));
   }
       if (message.content === "おはよー") {
     const embed = new discord.MessageEmbed()
@@ -173,34 +190,6 @@ client.on('message', async message => {
                     .setAuthor(message.author.tag, message.author.avatarURL())
     .setTimestamp();
       message.channel.send(embed);
-  }
-  if (message.content === "h!r") {
-          const embed = new discord.MessageEmbed()
-        .setTitle("これだけは守った方ええで")
-        .addField("荒らし行為は絶対禁止です", "した場合は即GBANです")
-        .addField("SELF BOTを使用しない", "セルフボットとは荒らしなどのために使用される悪質なBOTです。")
-        .addField("荒らし目的のサーバーの宣伝は禁止です", "あかんで")
-        .addField("導入リンク", "https://discord.com/api/oauth2/authorize?client_id=789094587632189462&permissions=8&scope=bot")
-                          .setAuthor(message.author.tag, message.author.avatarURL())
-              .setColor("GREEN")  
-        .setTimestamp();
-      message.channel.send(embed);
-  }
-  if (message.content === "h!help") {
-    const embed = new discord.MessageEmbed() 
-      .setTitle("困った時はこれ一つ！ヘルプ一覧！")
-        .addField("h!ad_help", "管理人が使えるコマンド一覧を表示します")
-    .addField("h!music_h", "ボイスチャンネルで使えるコマンド一覧を表示します")
-          .addField("h!invite", "導入リンクを表示します")
-            .addField("h!poll", "投票をします")
-              .addField("h!github", "た、ためにならんで...??")
-                  .addField("h!about", "開発者の情報表示する...よ...??")
-      .addField("導入リンク","https://discord.com/api/oauth2/authorize?client_id=789094587632189462&permissions=8&scope=bot")
-    .addField("ぜひ導入お願いします🤭", "Have a fun life with Hayashi Bot!")
-                .setAuthor(message.author.tag, message.author.avatarURL())
-    .setColor("RANDOM")
-      .setTimestamp();
-    message.channel.send(embed);
   }
     if (message.content === 'h!ad_help') {
       const embed = new discord.MessageEmbed()
@@ -405,5 +394,28 @@ client.on('message', async message => {
   message.channel.send('```こちらが見つかりました```'+videos[ 0 ].url)//表示
 })};
  })
+
+ client.on('message', message => {
+  if (message.content === 'h!help') {
+    const embed = new discord.MessageEmbed()
+    .setTitle('Help')
+           .setDescription('使ってくれ...')
+           .setAuthor('Hayashi','https://cs1.anime.dmkt-sp.jp/anime_kv/img/10/77/2/0/09/10772009_1_d2.jpg?1427216400000')
+           .setURL('https://discord.com/api/oauth2/authorize?client_id=789094587632189462&permissions=8&scope=bot')
+           .setThumbnail('https://discord.js.org/static/logo-square.png')
+           .setImage('https://freeillustbook.net/wp-content/uploads/2017/09/moon-night.jpg')
+           .addField("h!ad_help", "サーバー管理人用",true)
+    .addField("h!music_h", "ボイス用",true)
+          .addField("h!invite", "導入リンク",true)
+            .addField("h!poll", "投票",true)
+              .addField("h!github", "コード載せてる",true)
+                  .addField("h!about", "開発者の情報",true)
+           .setColor('RANDOM')
+           .setFooter('夜空大好きだああああ\nBy Hayashi\nTwitter@106996\nYouTube Hayashi1209')
+           .setTimestamp()
+           
+           message.channel.send(embed)
+  }
+})
 
 client.login('');
