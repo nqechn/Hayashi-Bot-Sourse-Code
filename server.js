@@ -1,25 +1,53 @@
 // Discord bot implements
 const discord = require("discord.js");
 const client = new discord.Client(); // Response for Uptime Robot
+const DD = new Date(
+  Date.now() + (new Date().getTimezoneOffset() + 9 * 60) * 60 * 1000
+);
 
+const Year = DD.getFullYear();
+const Month = DD.getMonth() + 1;
+const Day = DD.getDate();
+const Hours = DD.getHours();
+const Minutes = DD.getMinutes();
+const Seconds = DD.getSeconds();
 const ytdl = require("ytdl-core");
 const fs = require("fs");
+const fetch = require("node-fetch");
+const serp = require("serp");
 
  const prefix = 'h!'
  const pf = 'h!';
+ 
+const http = require("http");
+http
+  .createServer(function(request, response) {
+    response.writeHead(200, { "Content-Type": "text/plain" });
+    response.end(
+      "Hayashi Bot Status\n\nPing: " +
+        client.ws.ping +
+        "ms\n\nGuilds: " +
+        client.guilds.cache.size +
+        "Guilds\n\nNow: " +
+        Year +
+        "/" +
+        Month +
+        "/" +
+        Day +
+        " " +
+        Hours +
+        ":" +
+        Minutes +
+        ":" +
+        Seconds
+    );
+  })
+  .listen(5000); //いじるときいってくれー By おにちゃん
 
 client.on("ready", message => {
-  client.user.setActivity("Server : "+client.guilds.cache.size+" ｜ Ver : 1.0.3", { type: 'PLAYING' })
+  client.user.setActivity("h!help ｜ Server : "+client.guilds.cache.size+" ｜ Ver : 1.0.4", { type: 'PLAYING' })
 console.log("Bot Starting Now");
   console.log('Logined ' + client.user.tag + '(' + client.user.id + ')')
-})
-
-client.on('ready', () => {
-  setInterval(() => {
-    client.user.setActivity({
-      name: `https://discord.gg/K3JVKecmtg｜${client.ws.ping}ms`
-    })
-  }, 5000)
 })
 
 client.on('message', async message => {
@@ -202,6 +230,22 @@ client.on('message', async message => {
         .setTimestamp()
       message.channel.send(embed)
     }
+      if (message.content === 'h!help') {
+        const embed = new discord.MessageEmbed()
+        .setTitle('Command')
+               .addField("h!ad_help", "サーバー管理人用コマンドを表示します")
+        .addField("h!music_h", "ボイス用コマンドを表示します")
+              .addField("h!invite", "導入リンクを表示します")
+                .addField("h!poll", "投票します")
+                        .addField("h!url", "サイトの安全性を調べます")
+                  .addField("h!github", "コード載せてる")
+                      .addField("h!about", "開発者の情報を表示します")
+               .setColor('RANDOM')
+               .setFooter('Twitter@106996\nYouTube Hayashi1209')
+               .setTimestamp()
+               
+               message.channel.send(embed)
+      }
         if (message.content === 'h!music_h') {
       const embed = new discord.MessageEmbed()
         .setTitle('ボイスチャンネルで使うコマンド一覧だよ！')
@@ -237,6 +281,10 @@ client.on("message", async msg => {
                                );
         msg.channel.send(client.users.get(gbana[0]).tag +"(" +client.users.get(gbana[0]) +")をGbanしました。")
   }
+})
+
+  var adamin = "788734535562297365"; //adaminw
+client.on("message", async msg => {
   if (msg.content.startsWith("h!ungban")) {
     if (msg.author.bot) return;
     if (msg.author.id !== adamin) return msg.channel.send("エラー : あなたは林ボットの管理者ではありません。");
@@ -395,27 +443,82 @@ client.on('message', async message => {
 })};
  })
 
- client.on('message', message => {
-  if (message.content === 'h!help') {
-    const embed = new discord.MessageEmbed()
-    .setTitle('Help')
-           .setDescription('使ってくれ...')
-           .setAuthor('Hayashi','https://cs1.anime.dmkt-sp.jp/anime_kv/img/10/77/2/0/09/10772009_1_d2.jpg?1427216400000')
-           .setURL('https://discord.com/api/oauth2/authorize?client_id=789094587632189462&permissions=8&scope=bot')
-           .setThumbnail('https://discord.js.org/static/logo-square.png')
-           .setImage('https://freeillustbook.net/wp-content/uploads/2017/09/moon-night.jpg')
-           .addField("h!ad_help", "サーバー管理人用",true)
-    .addField("h!music_h", "ボイス用",true)
-          .addField("h!invite", "導入リンク",true)
-            .addField("h!poll", "投票",true)
-              .addField("h!github", "コード載せてる",true)
-                  .addField("h!about", "開発者の情報",true)
-           .setColor('RANDOM')
-           .setFooter('夜空大好きだああああ\nBy Hayashi\nTwitter@106996\nYouTube Hayashi1209')
-           .setTimestamp()
-           
-           message.channel.send(embed)
+client.on("message", message => {
+  // botのメンション　かつ　メンションしたユーザがvcチャネルに入っているかどうか
+  if (message.mentions.has(client.user) && message.member.voice.channel) {
+    // ボイチャに参加
+    message.member.voice.channel
+      .join()
+      .then(conn => {
+        // メンションメッセージを削除
+        message.delete();
+        // assetsに追加したmp3ファイルの再生インスタンス
+        const dispatcher = conn.play("https://cdn.glitch.com/8e575037-5dce-44ee-984a-65b66d647f2c%2FBillie%20Eilish%20-%20bad%20guy%20(Lyrics).mp3?v=1621773487254");
+        // 音量調節
+        dispatcher.setVolume(0.5);
+        // 再生終了時にボイチャを抜ける
+        dispatcher.on("finish", reason => {
+          conn.disconnect();
+        });
+      })
+      .catch(console.log);
+    return;
   }
-})
+});
 
-client.login('');
+client.on("message", async message => {
+if (!message.content.startsWith(prefix)) return; //ボットのプレフィックスからメッセージが始まっているか確認
+ const args = message.content.slice(prefix.length).trim().split(/ +/g);
+  const command = args.shift().toLowerCase();
+if (command === "url") { //コマンド名
+    try {
+  const url = args[0]; //URLを取得
+    if (!url) return message.channel.send("エラー : URLを指定して下さい。")
+ fetch(`https://safeweb.norton.com/report/show?url=${encodeURI(url)}&ulang=jpn`).then(res => res.text()).then(norton => { //NortonSafeWebにアクセス
+     if (norton.indexOf("安全性") != -1) {
+  message.channel.send({embed: {
+                title: "安全",
+                description: `ノートン セーフウェブが ${url} を分析して安全性とセキュリティの問題を調べました。`,
+                footer: {
+                    text: "Powered by Norton Safeweb"
+                },
+                color: 0xffd700
+                }})
+         } else if (norton.indexOf("注意") != -1) {
+          message.channel.send({embed: {
+                title: "結果は注意です。",
+                description: `［注意］の評価を受けた Web サイトは少数の脅威または迷惑を伴いますが、赤色の［警告］に相当するほど危険とは見なされません。サイトにアクセスする場合には注意が必要です。`,
+                    footer: {
+                    text: "Powered by Norton Safeweb"
+                },
+                color: 0xffd700
+                }})
+         } else if (norton.indexOf("警告") != -1) {
+           message.channel.send({embed: {
+                title: "結果は警告です。",
+                description: `これは既知の危険な Web ページです。このページを表示**しない**ことを推奨します。`,
+                    footer: {
+                    text: "Powered by Norton Safeweb"
+                },
+                color: 0xffd700
+                }})
+         } else {
+              message.channel.send({embed: {
+                title: "未評価",
+                description: `このサイトはまだ評価されていません。`,
+                    footer: {
+                    text: "Powered by Norton Safeweb"
+                },
+                color: 0xffd700
+                }})
+         }
+        });
+    } catch (err) {
+        message.channel.send(err)
+    }
+}
+});
+
+
+
+client.login(process.env.TOKEN) //あぶねーToken丸出しだった
