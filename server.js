@@ -265,41 +265,6 @@ client.on('message', async message => {
     }  
      })
 
-var adamin = "788734535562297365"; //adaminw
-client.on("message", async msg => {
-  if (msg.content.startsWith("h!gban")) {
-   if (msg.author.bot) return;
-    if (msg.author.id !== adamin) return msg.channel.send("エラー : あなたは林ボットの管理者ではありません。");
-    var gbana = msg.content.split(" ");
-    gbana.shift();
-    if (gbana[0] == undefined)
-      return msg.channel.send("エラー : IDを入力してください。");
-    if (gbana[1] == undefined)
-      return msg.channel.send("エラー : GBANの理由を入力してください。");
-    client.guilds.cache.forEach(guild =>
-      guild.members.ban(gbana[0], { reason: gbana[1] })
-                               );
-        msg.channel.send(client.users.get(gbana[0]).tag +"(" +client.users.get(gbana[0]) +")をGbanしました。")
-  }
-})
-
-  var adamin = "788734535562297365"; //adaminw
-client.on("message", async msg => {
-  if (msg.content.startsWith("h!ungban")) {
-    if (msg.author.bot) return;
-    if (msg.author.id !== adamin) return msg.channel.send("エラー : あなたは林ボットの管理者ではありません。");
-        var gbana = msg.content.split(" ");
-    gbana.shift();
-    if (gbana[0] == undefined)
-      return msg.channel.send("エラー : IDを入力してください。");
-    client.guilds.cache.forEach(guild =>
-      guild.members.unban(gbana[0] )
-                               );
-  msg.channel.send(client.users.users(gbana[0]).tag +"(" +client.users.get(gbana[0]) +")をGbanしました。")
-  }
-})
-
-
 client.on('message', async message => {
     if (!message.content.startsWith(prefix)) return
     const [command, ...args] = message.content.slice(prefix.length).split(' ')
